@@ -1,3 +1,4 @@
+
 import sequelize from "../config/database";
 import {
     DataTypes,
@@ -7,7 +8,10 @@ import {
     CreationOptional
 } from "sequelize";
 
-class Clinic extends Model<InferAttributes<Clinic>, InferCreationAttributes<Clinic>> {
+class Clinic extends Model<
+    InferAttributes<Clinic>,
+    InferCreationAttributes<Clinic>
+> {
     declare id: CreationOptional<number>;
     declare name: string;
     declare nit: string;
@@ -15,8 +19,6 @@ class Clinic extends Model<InferAttributes<Clinic>, InferCreationAttributes<Clin
     declare phone: string;
     declare responsible: string;
     declare status: CreationOptional<boolean>;
-    declare createdAt: CreationOptional<Date>;
-    declare updatedAt: CreationOptional<Date>;
 }
 
 Clinic.init(
@@ -58,16 +60,6 @@ Clinic.init(
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: true
-        },
-
-        createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-
-        updatedAt: {
-            type: DataTypes.DATE,
-            allowNull: false
         }
     },
     {
@@ -78,3 +70,4 @@ Clinic.init(
 );
 
 export default Clinic;
+

@@ -2,7 +2,7 @@ import express from "express";
 import type { Request, Response} from "express";
 import userRouter from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
-//import taskRouter from "./routes/task.routes";
+import clinicRouter from "./routes/clinic.routes";
 import sequelize from "./config/database";
 import "./models"
 import helmet from "helmet";
@@ -15,7 +15,7 @@ const app = express()
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
+
 
 
 app.use(
@@ -23,9 +23,10 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec)
 );
-//app.use("/tasks", taskRouter);
+
 app.use("/users", userRouter);
 app.use("/auth", authRoutes);
+app.use("/clinics", clinicRouter);
 
 sequelize.authenticate()
     .then(() => {
