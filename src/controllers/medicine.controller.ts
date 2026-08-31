@@ -7,10 +7,15 @@ import {
     deleteMedicineService
 } from "../services/medicine.service";
 
-export const createMedicine = async (
-    req: Request,
-    res: Response
-) => {
+
+/**
+ * Creates a new medicine.
+ *
+ * @param {Request} req - Express request object containing medicine data in the body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the created medicine or an error message.
+ */
+export const createMedicine = async (req: Request, res: Response) => { 
     try {
         const { name, description } = req.body;
 
@@ -33,10 +38,14 @@ export const createMedicine = async (
     }
 };
 
-export const getMedicines = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Retrieves all medicines.
+ *
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with a list of medicines or an error message.
+ */
+export const getMedicines = async (req: Request, res: Response) => {
     try {
         const medicines = await getAllMedicinesService();
 
@@ -48,10 +57,14 @@ export const getMedicines = async (
     }
 };
 
-export const getMedicine = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Retrieves a medicine by its ID.
+ *
+ * @param {Request} req - Express request object containing medicine ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the medicine data or an error message.
+ */
+export const getMedicine = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
 
@@ -77,10 +90,14 @@ export const getMedicine = async (
     }
 };
 
-export const updateMedicine = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Updates an existing medicine by its ID.
+ *
+ * @param {Request} req - Express request object containing medicine ID in params and updated data in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the updated medicine or an error message.
+ */
+export const updateMedicine = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
         const { name, description, status } = req.body;
@@ -111,10 +128,14 @@ export const updateMedicine = async (
     }
 };
 
-export const deleteMedicine = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Deletes (deactivates) a medicine by its ID.
+ *
+ * @param {Request} req - Express request object containing medicine ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response confirming deletion or an error message.
+ */
+export const deleteMedicine = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
 

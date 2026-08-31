@@ -7,10 +7,15 @@ import {
     deleteClinicService
 } from "../services/clinic.service";
 
+
 /**
  * Creates a new clinic.
+ *
+ * @param {Request} req - Express request object containing clinic data in the body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the created clinic or an error message.
  */
-export const createClinic = async (req: Request, res: Response) => {
+export const createClinic = async (req: Request, res: Response) => { 
     try {
         const clinic = await createClinicService(req.body);
 
@@ -30,7 +35,11 @@ export const createClinic = async (req: Request, res: Response) => {
 };
 
 /**
- * Returns all active clinics.
+ * Retrieves all active clinics.
+ *
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with a list of clinics or an error message.
  */
 export const getAllClinics = async (req: Request, res: Response) => {
     try {
@@ -47,7 +56,11 @@ export const getAllClinics = async (req: Request, res: Response) => {
 };
 
 /**
- * Returns an active clinic by ID.
+ * Retrieves an active clinic by its ID.
+ *
+ * @param {Request} req - Express request object containing clinic ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the clinic data or an error message.
  */
 export const getClinicById = async (req: Request, res: Response) => {
     try {
@@ -76,7 +89,11 @@ export const getClinicById = async (req: Request, res: Response) => {
 };
 
 /**
- * Updates an active clinic.
+ * Updates an existing clinic by its ID.
+ *
+ * @param {Request} req - Express request object containing clinic ID in params and updated data in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the updated clinic or an error message.
  */
 export const updateClinic = async (req: Request, res: Response) => {
     try {
@@ -106,7 +123,11 @@ export const updateClinic = async (req: Request, res: Response) => {
 };
 
 /**
- * Deactivates an active clinic.
+ * Deletes (deactivates) a clinic by its ID.
+ *
+ * @param {Request} req - Express request object containing clinic ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response confirming deletion or an error message.
  */
 export const deleteClinic = async (req: Request, res: Response) => {
     try {

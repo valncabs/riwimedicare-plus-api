@@ -8,6 +8,8 @@ import warehouseRouter from "./routes/warehouse.routes";
 import medicineRouter from "./routes/medicine.routes";
 import warehouseMedicineRouter from "./routes/warehouseMedicine.routes";
 import requestRouter from "./routes/request.routes";
+import requestHistoryRouter from "./routes/requestHistory.routes";
+
 
 import sequelize from "./config/database";
 import "./models";
@@ -37,6 +39,8 @@ app.use("/warehouses", warehouseRouter);
 app.use("/medicines", medicineRouter);
 app.use("/warehouses", warehouseMedicineRouter);
 app.use("/requests", requestRouter);
+app.use("/request-history", requestHistoryRouter);
+
 
 sequelize.authenticate()
     .then(() => {

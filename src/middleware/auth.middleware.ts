@@ -2,6 +2,19 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { AuthPayload } from "../types/express";
 
+/**
+ * Middleware to authenticate requests using JWT.
+ * 
+ * - Checks for the presence of an Authorization header.
+ * - Extracts and verifies the JWT token using the secret key.
+ * - Attaches the decoded payload to `req.user` if valid.
+ * - Rejects the request with a 401 status if the token is missing or invalid.
+ *
+ * @param {Request} req - Express request object containing headers with the JWT token.
+ * @param {Response} res - Express response object used to send back authentication errors.
+ * @param {NextFunction} next - Express next function to pass control to the next middleware.
+ * @returns {Response | void} - Returns a 401 error response if authentication fails, otherwise calls `next()`.
+ */
 export const authMiddleware = (
     req: Request,
     res: Response,

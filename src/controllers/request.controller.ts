@@ -8,10 +8,14 @@ import {
     deleteRequestService
 } from "../services/request.service";
 
-export const createRequest = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Creates a new request for medicines from a clinic to a warehouse.
+ *
+ * @param {Request} req - Express request object containing clinicId, medicineId, warehouseId, and quantity in the body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the created request or an error message.
+ */
+export const createRequest = async (req: Request, res: Response) => {
     try {
         const {
             clinicId,
@@ -47,10 +51,14 @@ export const createRequest = async (
     }
 };
 
-export const getRequests = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Retrieves all requests.
+ *
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with a list of requests or an error message.
+ */
+export const getRequests = async (req: Request, res: Response) => {
     try {
         const requests = await getAllRequestsService();
 
@@ -62,10 +70,14 @@ export const getRequests = async (
     }
 };
 
-export const getRequest = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Retrieves a request by its ID.
+ *
+ * @param {Request} req - Express request object containing request ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the request data or an error message.
+ */
+export const getRequest = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
 
@@ -91,10 +103,14 @@ export const getRequest = async (
     }
 };
 
-export const updateRequest = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Updates an existing request by its ID.
+ *
+ * @param {Request} req - Express request object containing request ID in params and updated data in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the updated request or an error message.
+ */
+export const updateRequest = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
 
@@ -134,10 +150,14 @@ export const updateRequest = async (
     }
 };
 
-export const deleteRequest = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Deletes (deactivates) a request by its ID.
+ *
+ * @param {Request} req - Express request object containing request ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response confirming deletion or an error message.
+ */
+export const deleteRequest = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
 

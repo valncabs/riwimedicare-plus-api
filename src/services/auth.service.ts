@@ -1,6 +1,6 @@
 import { findUserByEmail } from "../repositories/user.repository";
 import RefreshToken from "../models/RefreshToken";
-import { comparePassword} from "../utils/password";
+import { comparePassword } from "../utils/password";
 import {
     generateAccessToken,
     generateRefreshToken,
@@ -12,7 +12,18 @@ import {
     findRefreshToken
 } from "../repositories/refreshToken.repository";
 
-
+/**
+ * Authenticates a user by email and password.
+ *
+ * - Validates user existence and active status.
+ * - Compares provided password with stored hash.
+ * - Generates access and refresh tokens.
+ * - Persists the refresh token in the database with expiration.
+ *
+ * @param {string} email - User's email address.
+ * @param {string} password - User's password.
+ * @returns {Promise<{message: string, accessToken: string, refreshToken: string}>}
+ */
 export const loginUser = async (email: string, password: string) => {
     const user = await findUserByEmail(email);
 
@@ -41,15 +52,12 @@ export const loginUser = async (email: string, password: string) => {
     };
 
     const accessToken = generateAccessToken(payload);
-
     const refreshToken = generateRefreshToken(user.id);
 
     await RefreshToken.create({
         token: refreshToken,
         userId: user.id,
-        expiresAt: new Date(
-            Date.now() + 7 * 24 * 60 * 60 * 1000
-        ),
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     });
 
     return {
@@ -59,7 +67,17 @@ export const loginUser = async (email: string, password: string) => {
     };
 };
 
-
+/**
+ * Generates a new access token using a valid refresh token.
+ *
+ * - Validates refresh token existence and expiration.
+ * - Deletes expired tokens.
+ * - Verifies token integrity.
+ * - Issues a new access token.
+ *
+ * @param {string} refreshToken - The refresh token string.
+ * @returns {Promise<{accessToken: string}>}
+ */
 export const refreshAccessToken = async (refreshToken: string) => {
     const tokenData = await findRefreshToken(refreshToken);
 
@@ -73,24 +91,28 @@ export const refreshAccessToken = async (refreshToken: string) => {
     }
 
     try {
-        const decoded = verifyRefreshToken(refreshToken) as {
-            id: number;
-        };
+        const decoded = verifyRefreshToken(refreshToken) as { id: number };
 
         const accessToken = generateAccessToken({
             id: decoded.id
         });
 
-        return {
-            accessToken
-        };
+        return { accessToken };
 
     } catch {
         throw new Error("Refresh token inválido");
     }
 };
 
-
+/**
+ * Logs out a user by invalidating their refresh token.
+ *
+ * - Validates refresh token existence.
+ * - Deletes the token from the database.
+ *
+ * @param {string} refreshToken - The refresh token string.
+ * @returns {Promise<{message: string}>}
+ */
 export const logoutUser = async (refreshToken: string) => {
     const tokenData = await findRefreshToken(refreshToken);
 

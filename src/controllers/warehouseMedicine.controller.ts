@@ -7,10 +7,15 @@ import {
     deleteWarehouseMedicineService
 } from "../services/warehouseMedicine.service";
 
-export const createWarehouseMedicine = async (
-    req: Request,
-    res: Response
-) => {
+
+/**
+ * Creates a new warehouse-medicine association with stock information.
+ *
+ * @param {Request} req - Express request object containing warehouseId in params and medicineId, stock in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the created warehouse-medicine record or an error message.
+ */
+export const createWarehouseMedicine = async (req: Request, res: Response) => {
     try {
         const warehouseId = Number(req.params.warehouseId);
         const medicineId = Number(req.body.medicineId);
@@ -41,10 +46,15 @@ export const createWarehouseMedicine = async (
     }
 };
 
-export const getWarehouseMedicines = async (
-    req: Request,
-    res: Response
-) => {
+
+/**
+ * Retrieves all medicines stored in a specific warehouse.
+ *
+ * @param {Request} req - Express request object containing warehouseId in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with medicines in the warehouse or an error message.
+ */
+export const getWarehouseMedicines = async (req: Request, res: Response) => {
     try {
         const warehouseId = Number(req.params.warehouseId);
 
@@ -65,10 +75,14 @@ export const getWarehouseMedicines = async (
     }
 };
 
-export const updateWarehouseMedicine = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Updates the stock of a specific medicine in a warehouse.
+ *
+ * @param {Request} req - Express request object containing warehouseId and medicineId in params, and stock in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the updated warehouse-medicine record or an error message.
+ */
+export const updateWarehouseMedicine = async (req: Request, res: Response) => {
     try {
         const warehouseId = Number(req.params.warehouseId);
         const medicineId = Number(req.params.medicineId);
@@ -105,10 +119,14 @@ export const updateWarehouseMedicine = async (
     }
 };
 
-export const deleteWarehouseMedicine = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Deletes a medicine from a warehouse.
+ *
+ * @param {Request} req - Express request object containing warehouseId and medicineId in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response confirming deletion or an error message.
+ */
+export const deleteWarehouseMedicine = async (req: Request, res: Response) => {
     try {
         const warehouseId = Number(req.params.warehouseId);
         const medicineId = Number(req.params.medicineId);

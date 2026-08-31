@@ -6,7 +6,16 @@ import {
     logoutUser
 } from "../services/auth.service";
 
-export const login = async (req: Request, res: Response) => {
+/**
+ * Handles user login request.
+ * Extracts email and password from the request body,
+ * calls the loginUser service, and returns the authentication result.
+ * If authentication fails, responds with a 401 status and error message.
+ *
+ * @param {Request} req - Express request object containing email and password.
+ * @param {Response} res - Express response object used to send back the result.
+ */
+export const login = async (req: Request, res: Response) => { 
 
     try {
         const { email, password } = req.body;
@@ -22,6 +31,15 @@ export const login = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Handles refresh token request.
+ * Extracts the refresh token from the request body,
+ * calls the refreshAccessToken service, and returns a new access token.
+ * If the refresh token is invalid, responds with a 401 status and error message.
+ *
+ * @param {Request} req - Express request object containing the refresh token.
+ * @param {Response} res - Express response object used to send back the result.
+ */
 export const refresh = async (req: Request, res: Response) => {
 
     try {
@@ -41,6 +59,16 @@ export const refresh = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Handles user logout request.
+ * Extracts the refresh token from the request body,
+ * calls the logoutUser service to invalidate the token,
+ * and responds with a success message.
+ * If the refresh token is invalid, responds with a 401 status and error message.
+ *
+ * @param {Request} req - Express request object containing the refresh token.
+ * @param {Response} res - Express response object used to send back the result.
+ */
 export const logout = async (req: Request, res: Response) => {
 
     try {

@@ -1,10 +1,14 @@
 import type { Request, Response } from "express";
 import * as warehouseService from "../services/warehouse.service";
 
-export const createWarehouse = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Creates a new warehouse.
+ *
+ * @param {Request} req - Express request object containing warehouse data in the body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the created warehouse or an error message.
+ */
+export const createWarehouse = async (req: Request, res: Response) => {
     try {
         const warehouse = await warehouseService.createWarehouseService(
             req.body
@@ -23,10 +27,14 @@ export const createWarehouse = async (
     }
 };
 
-export const getWarehouses = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Retrieves all warehouses.
+ *
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with a list of warehouses or an error message.
+ */
+export const getWarehouses = async (req: Request, res: Response) => {
     try {
         const warehouses =
             await warehouseService.getAllWarehousesService();
@@ -41,10 +49,14 @@ export const getWarehouses = async (
     }
 };
 
-export const getWarehouse = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Retrieves a warehouse by its ID.
+ *
+ * @param {Request} req - Express request object containing warehouse ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the warehouse data or an error message.
+ */
+export const getWarehouse = async (req: Request, res: Response) => { 
     try {
         const id = Number(req.params.id);
 
@@ -67,10 +79,14 @@ export const getWarehouse = async (
     }
 };
 
-export const updateWarehouse = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Updates an existing warehouse by its ID.
+ *
+ * @param {Request} req - Express request object containing warehouse ID in params and updated data in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response with the updated warehouse or an error message.
+ */
+export const updateWarehouse = async (req: Request, res: Response) => { 
     try {
         const id = Number(req.params.id);
 
@@ -99,10 +115,14 @@ export const updateWarehouse = async (
     }
 };
 
-export const deleteWarehouse = async (
-    req: Request,
-    res: Response
-) => {
+/**
+ * Deletes a warehouse by its ID.
+ *
+ * @param {Request} req - Express request object containing warehouse ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response confirming deletion or an error message.
+ */
+export const deleteWarehouse = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
 

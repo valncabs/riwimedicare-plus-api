@@ -4,7 +4,14 @@ import { createUserService ,getAllUsers, getUserById, updateUser as updateUserSe
 import { UserRepositoryImpl } from "../repositories/user.repository";
 import * as userService from "../services/user.service";
 
-export const getUsers = async ( req: Request, res: Response): Promise<void> => {
+/**
+ * Retrieves all users from the system.
+ *
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<void>} - Returns a JSON response with all users or an error message.
+ */
+export const getUsers = async (req: Request, res: Response): Promise<void> => { 
     try {
         const users = await getAllUsers();
         res.status(200).json({
@@ -18,7 +25,14 @@ export const getUsers = async ( req: Request, res: Response): Promise<void> => {
     }
 };
 
-export const getUser = async ( req: Request, res: Response): Promise<void> => {
+/**
+ * Retrieves a user by their ID.
+ *
+ * @param {Request} req - Express request object containing user ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<void>} - Returns a JSON response with the user data or an error message.
+ */
+export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const id = Number(req.params.id);
         const user = await getUserById(id);
@@ -34,7 +48,14 @@ export const getUser = async ( req: Request, res: Response): Promise<void> => {
 };
 
 
-export const createUser = async (req: Request,res: Response): Promise<void> => {
+/**
+ * Creates a new user.
+ *
+ * @param {Request} req - Express request object containing user data in the body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<void>} - Returns a JSON response with the created user or an error message.
+ */
+export const createUser = async (req: Request, res: Response): Promise<void> => { 
     try {
         const user: CreateUserDto = req.body;
         const repository = new UserRepositoryImpl();
@@ -51,6 +72,13 @@ export const createUser = async (req: Request,res: Response): Promise<void> => {
     }
 };
 
+/**
+ * Updates an existing user by their ID.
+ *
+ * @param {Request} req - Express request object containing user ID in params and updated data in body.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<void>} - Returns a JSON response with the updated user or an error message.
+ */
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const id = Number(req.params.id);
@@ -67,6 +95,13 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
+/**
+ * Deletes a user by their ID.
+ *
+ * @param {Request} req - Express request object containing user ID in params.
+ * @param {Response} res - Express response object used to send back the result.
+ * @returns {Promise<Response>} - Returns a JSON response confirming deletion or an error message.
+ */
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);

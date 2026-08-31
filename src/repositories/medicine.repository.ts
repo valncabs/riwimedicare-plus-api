@@ -1,5 +1,13 @@
 import Medicine from "../models/Medicine";
 
+/**
+ * Creates a new medicine.
+ *
+ * @param {Object} data - Data required to create a medicine.
+ * @param {string} data.name - Name of the medicine.
+ * @param {string} [data.description] - Optional description of the medicine.
+ * @returns {Promise<Medicine>} - The newly created medicine instance.
+ */
 export const createMedicine = async (data: {
     name: string;
     description?: string;
@@ -7,6 +15,11 @@ export const createMedicine = async (data: {
     return await Medicine.create(data);
 };
 
+/**
+ * Returns all active medicines.
+ *
+ * @returns {Promise<Medicine[]>} - Array of active medicines.
+ */
 export const findAllMedicines = async () => {
     return await Medicine.findAll({
         where: {
@@ -15,6 +28,12 @@ export const findAllMedicines = async () => {
     });
 };
 
+/**
+ * Finds an active medicine by ID.
+ *
+ * @param {number} id - Medicine identifier.
+ * @returns {Promise<Medicine | null>} - The medicine if found, otherwise null.
+ */
 export const findMedicineById = async (id: number) => {
     return await Medicine.findOne({
         where: {
@@ -24,6 +43,16 @@ export const findMedicineById = async (id: number) => {
     });
 };
 
+/**
+ * Updates a medicine by ID.
+ *
+ * @param {number} id - Medicine identifier.
+ * @param {Object} data - Partial data to update.
+ * @param {string} [data.name] - Updated name of the medicine.
+ * @param {string} [data.description] - Updated description of the medicine.
+ * @param {boolean} [data.status] - Updated status of the medicine.
+ * @returns {Promise<Medicine | null>} - The updated medicine if found, otherwise null.
+ */
 export const updateMedicineById = async (
     id: number,
     data: {
@@ -43,6 +72,12 @@ export const updateMedicineById = async (
     return medicine;
 };
 
+/**
+ * Deactivates a medicine instead of deleting it permanently.
+ *
+ * @param {number} id - Medicine identifier.
+ * @returns {Promise<Medicine | null>} - The deactivated medicine if found, otherwise null.
+ */
 export const deleteMedicineById = async (id: number) => {
     const medicine = await Medicine.findByPk(id);
 
