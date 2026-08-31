@@ -194,7 +194,7 @@ PostgreSQL
 
 ### Routes
 
-Def```text
+```text
 Role
  │
  └── User
@@ -224,6 +224,7 @@ Warehouse
 Request
  │
  └── RequestHistoryine the available API endpoints.
+```
 
 ### Middleware
 
@@ -399,15 +400,6 @@ createdAt
 updatedAt
 ```
 
-Example:
-
-```json
-{
-  "name": "Acetaminophen",
-  "description": "Pain reliever and fever reducer"
-}
-```
-
 ---
 
 ## Warehouses
@@ -448,14 +440,6 @@ DELETE /warehouses/:warehouseId/medicines/:medicineId
 
 It is used to manage medicine inventory.
 
-Example:
-
-```json
-{
-  "medicineId": 1,
-  "stock": 100
-}
-```
 
 The relationship is:
 
@@ -485,17 +469,6 @@ PUT    /requests/:id
 DELETE /requests/:id
 ```
 
-Example:
-
-```json
-{
-  "clinicId": 1,
-  "medicineId": 1,
-  "warehouseId": 1,
-  "quantity": 50
-}
-```
-
 The default request status is:
 
 ```text
@@ -514,14 +487,6 @@ GET  /request-history
 GET  /request-history/:id
 ```
 
-Example:
-
-```json
-{
-  "requestId": 1,
-  "status": "approved"
-}
-```
 
 A history record contains:
 
@@ -572,12 +537,8 @@ dist/
 ## Step 1 — Clone the repository
 
 ```bash
-git clone YOUR_PUBLIC_GITHUB_REPOSITORY_URL
+git clone https://github.com/valncabs/riwimedicare-plus-api.git
 ```
-
-Move into the project directory:
-
-
 
 ---
 
@@ -753,18 +714,11 @@ Then use the Seeder endpoint.
 POST /seed
 ```
 
-The endpoint receives the JSON file through `multipart/form-data`.
-
-The form field must be:
-
-```text
-file
-```
 
 ---
 
 
-# 14. JSON Seeder Process
+# 15. JSON Seeder Process
 
 The complete process is:
 
@@ -799,12 +753,12 @@ Instead of manually creating each clinic, warehouse, or medicine through individ
 
 ---
 
-# 15. Project Execution
+# 16. Project Execution
 
 After completing the installation and database configuration, execute:
 
 ```bash
-npm run dev
+npm start
 ```
 
 The server will start on:
@@ -822,12 +776,12 @@ npm start
 
 ---
 
-# 16. Swagger Documentation
+# 17. Swagger Documentation
 
 The API includes interactive Swagger documentation.
 
 Once the server is running, open:
-
+GET /health
 ```text
 http://localhost:3000/api-docs
 ```
@@ -845,12 +799,12 @@ Swagger allows developers to:
 
 ---
 
-# 17. Health Check
+# 18. Health Check
 
 The application includes a health check endpoint:
 
 ```text
-GET /health
+http://localhost:3000/health
 ```
 
 Example response:
@@ -866,7 +820,7 @@ This endpoint can be used to verify that the API is running correctly.
 
 ---
 
-# 18. HTTP Status Codes
+# 19. HTTP Status Codes
 
 The API uses standard HTTP status codes.
 
@@ -883,7 +837,7 @@ The API uses standard HTTP status codes.
 
 ---
 
-# 19. Recommended Testing Flow
+# 20. Recommended Testing Flow
 
 For testing the complete application, the following order is recommended:
 
@@ -925,7 +879,7 @@ For testing the complete application, the following order is recommended:
 
 ---
 
-# 20. Security
+# 21. Security
 
 The application implements several security mechanisms.
 
@@ -955,7 +909,7 @@ Sensitive information such as database credentials and JWT secrets is stored in 
 
 ---
 
-# 23. Seeder Types
+# 22. Seeder Types
 
 The project provides two different ways to populate the database.
 
@@ -977,7 +931,7 @@ user
 ```
 
 
-# 24. Quick Start
+# 23. Quick Start
 
 For a quick setup, execute the following commands:
 
@@ -994,7 +948,6 @@ npm install
 # Configure environment variables
 # Create .env
 
-
 # Run Sequelize seeders
 npx sequelize-cli db:seed:all
 
@@ -1008,17 +961,8 @@ Then access Swagger:
 http://localhost:3000/api-docs
 ```
 
----
 
-# 25. Author
-
-**Coder:** Valentina REy Cabas Miranda 
-
-**Clan:** Node / Nest AM
-
----
-
-# 26. Final Notes
+# 24. Final Notes
 
 This project was developed as a RESTful backend solution focused on medicine and inventory management.
 
