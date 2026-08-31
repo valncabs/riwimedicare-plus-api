@@ -2,7 +2,7 @@
 
 ## Project Information
 
-**Coder:** Valentina REy Cabas Miranda 
+**Coder:** Valentina Rey Cabas Miranda 
 **Clan:** Node / Nest AM
 **Repository:** https://github.com/valncabs/riwimedicare-plus-api.git
 **Project:** Medicine Management API
