@@ -1,33 +1,42 @@
-import multer from "multer";
+import { Request, Response } from "express";
+import { seedDatabaseService } from "../services/seed.service";
 
 /**
- * Multer storage configuration using memory storage.
- *
- * - Files are stored in memory as Buffer objects.
- * - Useful for processing files directly (ej. parsear JSON) sin necesidad de guardarlos en disco.
+ * Controlador para manejar la siembra (seeding) de la base de datos mediante la carga de un archivo JSON.
+ * 
+ * @async
+ * @function seedDatabase
+ * @param {Request} req - Objeto de petición de Express. Se espera un archivo en `req.file` (procesado por Multer u otro middleware de carga).
+ * @param {Response} res - Objeto de respuesta de Express para enviar el estado y los datos correspondientes.
+ * @returns {Promise<Response>} Retorna una promesa que resuelve con la respuesta HTTP:
+ * - **201 (Created):** Si el archivo JSON fue procesado e importado con éxito en la base de datos.
+ * - **400 (Bad Request):** Si no se adjuntó ningún archivo en la petición o si ocurre un error durante el procesamiento.
  */
-const storage = multer.memoryStorage();
+export const seedDatabase = async (
+    req: Request,
+    res: Response
+) => {
+    try {
 
-/**
- * Multer upload middleware.
- *
- * - Only allows files with MIME type "application/json".
- * - Rejects any other file type with an error.
- *
- * @example
- * app.post("/upload", upload.single("file"), (req, res) => {
- *   const jsonBuffer = req.file?.buffer;
- *   const jsonData = JSON.parse(jsonBuffer.toString());
- *   res.json(jsonData);
- * });
- */
-export const upload = multer({
-    storage,
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype === "application/json") {
-            cb(null, true);
-        } else {
-            cb(new Error("Only JSON files are allowed"));
+        if (!req.file) {
+            return res.status(400).json({
+                message: "JSON file is required"
+            });
         }
+
+        const result = await seedDatabaseService(
+            req.file.buffer
+        );
+
+        return res.status(201).json(result);
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(400).json({
+            message: "Could not seed database"
+        });
+
     }
-});
+};
