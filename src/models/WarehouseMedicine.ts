@@ -54,11 +54,17 @@ WarehouseMedicine.init(
             allowNull: false
         }
     },
-    {
-        sequelize,
-        tableName: "warehouse_medicines",
-        timestamps: true
-    }
+{
+    sequelize,
+    tableName: "warehouse_medicines",
+    timestamps: true,
+    indexes: [
+        {
+            unique: true,
+            fields: ["warehouseId", "medicineId"]
+        }
+    ]
+}
 );
 
 export default WarehouseMedicine;
