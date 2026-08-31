@@ -577,13 +577,11 @@ git clone YOUR_PUBLIC_GITHUB_REPOSITORY_URL
 
 Move into the project directory:
 
-```bash
-cd YOUR_PROJECT_NAME
-```
+
 
 ---
 
-## Step 2 — Install dependencies
+## Step 1 — Install dependencies
 
 Run:
 
@@ -593,7 +591,7 @@ npm install
 
 ---
 
-## Step 3 — Configure PostgreSQL
+## Step 2 — Configure PostgreSQL
 
 Create a PostgreSQL database.
 
@@ -610,7 +608,7 @@ Make sure the database credentials match the values configured in the environmen
 
 ---
 
-## Step 4 — Configure the environment
+## Step 3 — Configure the environment
 
 Create the `.env` file and add the required variables:
 
@@ -626,37 +624,8 @@ JWT_SECRET=your_secret_key
 
 ---
 
-# 11. Database Migrations
 
-The project uses Sequelize CLI to manage database migrations.
-
-To execute all migrations:
-
-```bash
-npx sequelize-cli db:migrate
-```
-
-To check migration status:
-
-```bash
-npx sequelize-cli db:migrate:status
-```
-
-To undo the last migration:
-
-```bash
-npx sequelize-cli db:migrate:undo
-```
-
-To undo all migrations:
-
-```bash
-npx sequelize-cli db:migrate:undo:all
-```
-
----
-
-# 12. Sequelize Seeder
+# 11. Sequelize Seeder
 
 The project includes a Sequelize CLI Seeder for loading static information into the database.
 
@@ -687,7 +656,7 @@ npx sequelize-cli db:seed:undo:all
 
 ---
 
-# 13. JSON Seeder
+# 12. JSON Seeder
 
 The project also includes a dynamic JSON Seeder.
 
@@ -717,7 +686,7 @@ archivo.json
 
 ---
 
-# 14. JSON Seeder File
+# 13. JSON Seeder File
 
 The JSON Seeder supports base information such as clinics, warehouses, and medicines.
 
@@ -770,12 +739,12 @@ Example:
 
 ---
 
-# 15. How to Execute the JSON Seeder
+# 14. How to Execute the JSON Seeder
 
 First, start the API:
 
 ```bash
-npm run dev
+npm start
 ```
 
 Then use the Seeder endpoint.
@@ -794,28 +763,8 @@ file
 
 ---
 
-## Using cURL
 
-Example:
-
-```bash
-curl -X POST \
-  http://localhost:3000/seed \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -F "file=@archivo.json"
-```
-
-Replace:
-
-```text
-YOUR_TOKEN
-```
-
-with a valid JWT obtained through the login endpoint.
-
----
-
-# 16. JSON Seeder Process
+# 14. JSON Seeder Process
 
 The complete process is:
 
@@ -850,7 +799,7 @@ Instead of manually creating each clinic, warehouse, or medicine through individ
 
 ---
 
-# 17. Project Execution
+# 15. Project Execution
 
 After completing the installation and database configuration, execute:
 
@@ -873,7 +822,7 @@ npm start
 
 ---
 
-# 18. Swagger Documentation
+# 16. Swagger Documentation
 
 The API includes interactive Swagger documentation.
 
@@ -896,7 +845,7 @@ Swagger allows developers to:
 
 ---
 
-# 19. Health Check
+# 17. Health Check
 
 The application includes a health check endpoint:
 
@@ -917,7 +866,7 @@ This endpoint can be used to verify that the API is running correctly.
 
 ---
 
-# 20. HTTP Status Codes
+# 18. HTTP Status Codes
 
 The API uses standard HTTP status codes.
 
@@ -934,7 +883,7 @@ The API uses standard HTTP status codes.
 
 ---
 
-# 21. Recommended Testing Flow
+# 19. Recommended Testing Flow
 
 For testing the complete application, the following order is recommended:
 
@@ -976,7 +925,7 @@ For testing the complete application, the following order is recommended:
 
 ---
 
-# 22. Security
+# 20. Security
 
 The application implements several security mechanisms.
 
@@ -1027,22 +976,6 @@ admin
 user
 ```
 
-## JSON Seeder Endpoint
-
-Used for loading test or base data dynamically.
-
-Example:
-
-```bash
-curl -X POST \
-  http://localhost:3000/seed \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -F "file=@archivo.json"
-```
-
-This approach allows multiple datasets to be loaded without creating a new Sequelize Seeder every time.
-
----
 
 # 24. Quick Start
 
@@ -1066,7 +999,7 @@ npm install
 npx sequelize-cli db:seed:all
 
 # Start the API
-npm run dev
+npm start
 ```
 
 Then access Swagger:
@@ -1075,28 +1008,9 @@ Then access Swagger:
 http://localhost:3000/api-docs
 ```
 
-After obtaining an authentication token, the JSON Seeder can be executed with:
-
-```bash
-curl -X POST \
-  http://localhost:3000/seed \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -F "file=@archivo.json"
-```
-
 ---
 
-# 25. GitHub Repository
-
-The complete source code of the project is available in a public GitHub repository.
-
-**Repository:**
-
-YOUR_PUBLIC_GITHUB_REPOSITORY_URL
-
----
-
-# 26. Author
+# 25. Author
 
 **Coder:** Valentina REy Cabas Miranda 
 
@@ -1104,7 +1018,7 @@ YOUR_PUBLIC_GITHUB_REPOSITORY_URL
 
 ---
 
-# 27. Final Notes
+# 26. Final Notes
 
 This project was developed as a RESTful backend solution focused on medicine and inventory management.
 
