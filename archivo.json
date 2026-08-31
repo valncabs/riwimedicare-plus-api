@@ -1,0 +1,42 @@
+{
+  "clinics": [
+    {
+      "name": "Clínica Central",
+      "nit": "900123456-7",
+      "address": "Calle 72 #45-10",
+      "phone": "3001234567",
+      "responsible": "María González"
+    },
+    {
+      "name": "Clínica Norte",
+      "nit": "900765432-1",
+      "address": "Carrera 50 #80-20",
+      "phone": "3007654321",
+      "responsible": "Carlos Rodríguez"
+    }
+  ],
+  "warehouses": [
+    {
+      "name": "Almacén Central",
+      "location": "Calle 30 #20-15"
+    },
+    {
+      "name": "Almacén Norte",
+      "location": "Carrera 46 #80-25"
+    }
+  ],
+  "medicines": [
+    {
+      "name": "Acetaminophen",
+      "description": "Pain reliever and fever reducer"
+    },
+    {
+      "name": "Ibuprofen",
+      "description": "Anti-inflammatory and pain reliever"
+    },
+    {
+      "name": "Amoxicillin",
+      "description": "Antibiotic"
+    }
+  ]
+}

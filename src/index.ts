@@ -9,7 +9,7 @@ import medicineRouter from "./routes/medicine.routes";
 import warehouseMedicineRouter from "./routes/warehouseMedicine.routes";
 import requestRouter from "./routes/request.routes";
 import requestHistoryRouter from "./routes/requestHistory.routes";
-
+import seedRouter from "./routes/seed.routes";
 
 import sequelize from "./config/database";
 import "./models";
@@ -40,7 +40,7 @@ app.use("/medicines", medicineRouter);
 app.use("/warehouses", warehouseMedicineRouter);
 app.use("/requests", requestRouter);
 app.use("/request-history", requestHistoryRouter);
-
+app.use("/seed", seedRouter);
 
 sequelize.authenticate()
     .then(() => {
