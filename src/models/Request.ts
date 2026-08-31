@@ -1,3 +1,4 @@
+
 import sequelize from "../config/database";
 import {
     DataTypes,
@@ -47,11 +48,19 @@ Request.init(
 
         quantity: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: 1
+            }
         },
 
         status: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM(
+                "pending",
+                "approved",
+                "rejected",
+                "completed"
+            ),
             allowNull: false,
             defaultValue: "pending"
         },
@@ -74,3 +83,4 @@ Request.init(
 );
 
 export default Request;
+

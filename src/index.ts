@@ -7,6 +7,7 @@ import clinicRouter from "./routes/clinic.routes";
 import warehouseRouter from "./routes/warehouse.routes";
 import medicineRouter from "./routes/medicine.routes";
 import warehouseMedicineRouter from "./routes/warehouseMedicine.routes";
+import requestRouter from "./routes/request.routes";
 
 import sequelize from "./config/database";
 import "./models";
@@ -35,6 +36,7 @@ app.use("/clinics", clinicRouter);
 app.use("/warehouses", warehouseRouter);
 app.use("/medicines", medicineRouter);
 app.use("/warehouses", warehouseMedicineRouter);
+app.use("/requests", requestRouter);
 
 sequelize.authenticate()
     .then(() => {
@@ -58,3 +60,5 @@ app.get("/health", (req: Request, res: Response) => {
 app.listen(3000, () => {
     console.log("hola desde el puerto 3000");
 });
+
+
