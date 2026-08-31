@@ -1,3 +1,4 @@
+
 import { Router } from "express";
 import * as clinicController from "../controllers/clinic.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
@@ -47,7 +48,7 @@ const router = Router();
  *       201:
  *         description: Clinic created successfully
  *       400:
- *         description: Invalid clinic data or NIT already registered
+ *         description: Invalid clinic data
  *       401:
  *         description: User not authenticated
  *       403:
@@ -56,7 +57,7 @@ const router = Router();
 router.post(
     "/",
     authMiddleware,
-    roleMiddleware([1]),
+    roleMiddleware(["admin"]),
     clinicController.createClinic
 );
 
@@ -66,7 +67,7 @@ router.post(
  * /clinics:
  *   get:
  *     summary: Get all clinics
- *     description: Returns all active clinics. Requires authentication.
+ *     description: Returns all clinics. Requires authentication.
  *     tags:
  *       - Clinics
  *     security:
@@ -76,12 +77,13 @@ router.post(
  *         description: Clinics retrieved successfully
  *       401:
  *         description: User not authenticated
- *       500:
- *         description: Internal server error
+ *       403:
+ *         description: Access denied
  */
 router.get(
     "/",
     authMiddleware,
+    roleMiddleware(["admin", "user"]),
     clinicController.getAllClinics
 );
 
@@ -91,7 +93,7 @@ router.get(
  * /clinics/{id}:
  *   get:
  *     summary: Get a clinic by ID
- *     description: Returns a specific active clinic. Requires authentication.
+ *     description: Returns a specific clinic by its ID. Requires authentication.
  *     tags:
  *       - Clinics
  *     security:
@@ -111,12 +113,15 @@ router.get(
  *         description: Invalid clinic ID
  *       401:
  *         description: User not authenticated
+ *       403:
+ *         description: Access denied
  *       404:
  *         description: Clinic not found
  */
 router.get(
     "/:id",
     authMiddleware,
+    roleMiddleware(["admin", "user"]),
     clinicController.getClinicById
 );
 
@@ -161,11 +166,14 @@ router.get(
  *               responsible:
  *                 type: string
  *                 example: María González
+ *               status:
+ *                 type: boolean
+ *                 example: true
  *     responses:
  *       200:
  *         description: Clinic updated successfully
  *       400:
- *         description: Invalid clinic data or NIT already registered
+ *         description: Invalid clinic data
  *       401:
  *         description: User not authenticated
  *       403:
@@ -176,7 +184,7 @@ router.get(
 router.put(
     "/:id",
     authMiddleware,
-    roleMiddleware([1]),
+    roleMiddleware(["admin"]),
     clinicController.updateClinic
 );
 
@@ -186,7 +194,7 @@ router.put(
  * /clinics/{id}:
  *   delete:
  *     summary: Deactivate a clinic
- *     description: Deactivates a clinic instead of permanently deleting it. Requires authentication and administrator role.
+ *     description: Deactivates an existing clinic instead of permanently deleting it. Requires authentication and administrator role.
  *     tags:
  *       - Clinics
  *     security:
@@ -214,8 +222,9 @@ router.put(
 router.delete(
     "/:id",
     authMiddleware,
-    roleMiddleware([1]),
+    roleMiddleware(["admin"]),
     clinicController.deleteClinic
 );
 
 export default router;
+

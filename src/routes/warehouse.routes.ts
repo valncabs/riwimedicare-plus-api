@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import * as userController from "../controllers/user.controller";
+import * as warehouseController from "../controllers/warehouse.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
 import { roleMiddleware } from "../middleware/role.middleware";
 
@@ -8,12 +8,12 @@ const router = Router();
 
 /**
  * @swagger
- * /users:
+ * /warehouses:
  *   post:
- *     summary: Create a new user
- *     description: Creates a new user account. Requires administrator role.
+ *     summary: Create a new warehouse
+ *     description: Creates a new warehouse. Requires authentication and administrator role.
  *     tags:
- *       - Users
+ *       - Warehouses
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -24,56 +24,45 @@ const router = Router();
  *             type: object
  *             required:
  *               - name
- *               - email
- *               - password
+ *               - location
  *             properties:
  *               name:
  *                 type: string
- *                 example: Valentina
- *               email:
+ *                 example: Central Warehouse
+ *               location:
  *                 type: string
- *                 format: email
- *                 example: valentina@example.com
- *               password:
- *                 type: string
- *                 format: password
- *                 example: Password123
- *               roleId:
- *                 type: integer
- *                 example: 5
+ *                 example: Calle 72 #45-10
  *     responses:
  *       201:
- *         description: User created successfully
+ *         description: Warehouse created successfully
  *       400:
- *         description: Invalid user data
+ *         description: Invalid warehouse data
  *       401:
  *         description: User not authenticated
  *       403:
  *         description: Access denied. Administrator role required
- *       409:
- *         description: Email already registered
  */
 router.post(
     "/",
     authMiddleware,
     roleMiddleware(["admin"]),
-    userController.createUser
+    warehouseController.createWarehouse
 );
 
 
 /**
  * @swagger
- * /users:
+ * /warehouses:
  *   get:
- *     summary: Get all users
- *     description: Returns all users. Requires authentication.
+ *     summary: Get all warehouses
+ *     description: Returns all warehouses. Requires authentication.
  *     tags:
- *       - Users
+ *       - Warehouses
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Users retrieved successfully
+ *         description: Warehouses retrieved successfully
  *       401:
  *         description: User not authenticated
  *       403:
@@ -83,18 +72,18 @@ router.get(
     "/",
     authMiddleware,
     roleMiddleware(["admin", "user"]),
-    userController.getUsers
+    warehouseController.getWarehouses
 );
 
 
 /**
  * @swagger
- * /users/{id}:
+ * /warehouses/{id}:
  *   get:
- *     summary: Get a user by ID
- *     description: Returns a specific user. Requires authentication.
+ *     summary: Get a warehouse by ID
+ *     description: Returns a specific warehouse by its ID. Requires authentication.
  *     tags:
- *       - Users
+ *       - Warehouses
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -103,34 +92,36 @@ router.get(
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID of the user
+ *         description: ID of the warehouse
  *         example: 1
  *     responses:
  *       200:
- *         description: User retrieved successfully
+ *         description: Warehouse retrieved successfully
+ *       400:
+ *         description: Invalid warehouse ID
  *       401:
  *         description: User not authenticated
  *       403:
- *         description: Access denied. Administrator role required
+ *         description: Access denied
  *       404:
- *         description: User not found
+ *         description: Warehouse not found
  */
 router.get(
     "/:id",
     authMiddleware,
-    roleMiddleware(["admin"]),
-    userController.getUser
+    roleMiddleware(["admin", "user"]),
+    warehouseController.getWarehouse
 );
 
 
 /**
  * @swagger
- * /users/{id}:
+ * /warehouses/{id}:
  *   put:
- *     summary: Update a user
- *     description: Updates an existing user. Requires authentication and administrator role.
+ *     summary: Update a warehouse
+ *     description: Updates an existing warehouse. Requires authentication and administrator role.
  *     tags:
- *       - Users
+ *       - Warehouses
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -139,7 +130,7 @@ router.get(
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID of the user
+ *         description: ID of the warehouse
  *         example: 1
  *     requestBody:
  *       required: true
@@ -150,46 +141,41 @@ router.get(
  *             properties:
  *               name:
  *                 type: string
- *                 example: valentina2026
- *               email:
+ *                 example: Main Warehouse
+ *               location:
  *                 type: string
- *                 format: email
- *                 example: valentina2026@example.com
- *               password:
- *                 type: string
- *                 format: password
- *                 example: 1234567
- *               roleId:
- *                 type: integer
- *                 example: 5
+ *                 example: Carrera 50 #80-20
+ *               status:
+ *                 type: boolean
+ *                 example: true
  *     responses:
  *       200:
- *         description: User updated successfully
+ *         description: Warehouse updated successfully
  *       400:
- *         description: Invalid user data
+ *         description: Invalid warehouse data
  *       401:
  *         description: User not authenticated
  *       403:
  *         description: Access denied. Administrator role required
  *       404:
- *         description: User not found
+ *         description: Warehouse not found
  */
 router.put(
     "/:id",
     authMiddleware,
     roleMiddleware(["admin"]),
-    userController.updateUser
+    warehouseController.updateWarehouse
 );
 
 
 /**
  * @swagger
- * /users/{id}:
+ * /warehouses/{id}:
  *   delete:
- *     summary: Delete a user
- *     description: Deactivates a user. Requires authentication and administrator role.
+ *     summary: Deactivate a warehouse
+ *     description: Deactivates an existing warehouse instead of permanently deleting it. Requires authentication and administrator role.
  *     tags:
- *       - Users
+ *       - Warehouses
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -198,23 +184,25 @@ router.put(
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID of the user
+ *         description: ID of the warehouse
  *         example: 1
  *     responses:
  *       200:
- *         description: User deleted successfully
+ *         description: Warehouse deactivated successfully
+ *       400:
+ *         description: Invalid warehouse ID
  *       401:
  *         description: User not authenticated
  *       403:
  *         description: Access denied. Administrator role required
  *       404:
- *         description: User not found
+ *         description: Warehouse not found
  */
 router.delete(
     "/:id",
     authMiddleware,
     roleMiddleware(["admin"]),
-    userController.deleteUser
+    warehouseController.deleteWarehouse
 );
 
 export default router;

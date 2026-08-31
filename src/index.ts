@@ -4,6 +4,7 @@ import userRouter from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 import clinicRouter from "./routes/clinic.routes";
 import sequelize from "./config/database";
+import warehouseRouter from "./routes/warehouse.routes";
 import "./models"
 import helmet from "helmet";
 import cors from "cors";
@@ -24,6 +25,7 @@ app.use(
     swaggerUi.setup(swaggerSpec)
 );
 
+app.use("/warehouses", warehouseRouter);
 app.use("/users", userRouter);
 app.use("/auth", authRoutes);
 app.use("/clinics", clinicRouter);
